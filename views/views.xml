@@ -13,13 +13,13 @@
     </record>
 
     <!-- actions opening views on models -->
-<!--
-    <record model="ir.actions.act_window" id="school.action_window">
-      <field name="name">school window</field>
-      <field name="res_model">school.school</field>
+
+    <record model="ir.actions.act_window" id="school.action_student_window">
+      <field name="name">school student window</field>
+      <field name="res_model">school.student</field>
       <field name="view_mode">tree,form</field>
     </record>
--->
+
 
     <!-- server action to the one above -->
 <!--
@@ -38,20 +38,15 @@
 -->
 
     <!-- Top menu item -->
-<!--
+
     <menuitem name="school" id="school.menu_root"/>
--->
     <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="school.menu_1" parent="school.menu_root"/>
-    <menuitem name="Menu 2" id="school.menu_2" parent="school.menu_root"/>
--->
+
+    <menuitem name="Management" id="school.menu_1" parent="school.menu_root"/>
+
     <!-- actions -->
-<!--
-    <menuitem name="List" id="school.menu_1_list" parent="school.menu_1"
-              action="school.action_window"/>
-    <menuitem name="Server to list" id="school" parent="school.menu_2"
-              action="school.action_server"/>
--->
+
+    <menuitem name="Students" id="school.menu_1_student_list" parent="school.menu_1"
+              action="school.action_student_window"/>
   </data>
 </odoo>
