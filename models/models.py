@@ -13,4 +13,5 @@ class student(models.Model):
     inscription_date = fields.Date()
     last_login = fields.Datetime()
     is_student = fields.Boolean()
-    photo = fields.Binary()
+    #photo = fields.Binary()
+    photo = fields.Image(max_widtth=200, max_height=200)
