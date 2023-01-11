@@ -15,11 +15,16 @@ class student(models.Model):
     is_student = fields.Boolean()
     #photo = fields.Binary()
     photo = fields.Image(max_widtth=200, max_height=200)
-    # Clave ajena a la clave primaria de classroom
+    # Clave ajena a la clave primaria de classroom. Se guarda en BDD
     classroom = fields.Many2one("school.classroom")
+    
 
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
 
     name = fields.Char() # Todos los modelos deben tener un field name
+    # Esto es una consulta, no se guarda en BDD
+    # Se declara como un field pero no se guarda porque es simplemente una
+    # consulta a partir del many2one que sí se guarda en BDD
+    students = fields.One2many("school.student", 'classroom')
