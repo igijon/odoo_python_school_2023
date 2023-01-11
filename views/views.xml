@@ -21,6 +21,12 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="school.action_classroom_window">
+      <field name="name">school classroom window</field>
+      <field name="res_model">school.classroom</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
 
     <!-- server action to the one above -->
 <!--
@@ -49,5 +55,7 @@
 
     <menuitem name="Students" id="school.menu_1_student_list" parent="school.menu_1"
               action="school.action_student_window"/>
+    <menuitem name="Classrooms" id="school.menu_1_classroom_list" parent="school.menu_1"
+              action="school.action_classroom_window"/>
   </data>
 </odoo>
