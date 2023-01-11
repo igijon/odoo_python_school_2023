@@ -15,3 +15,11 @@ class student(models.Model):
     is_student = fields.Boolean()
     #photo = fields.Binary()
     photo = fields.Image(max_widtth=200, max_height=200)
+    # Clave ajena a la clave primaria de classroom
+    classroom = fields.Many2one("school.classroom")
+
+class classroom(models.Model):
+    _name = 'school.classroom'
+    _description = 'Las clases'
+
+    name = fields.Char() # Todos los modelos deben tener un field name
