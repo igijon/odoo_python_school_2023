@@ -28,7 +28,8 @@ class classroom(models.Model):
     # Se declara como un field pero no se guarda porque es simplemente una
     # consulta a partir del many2one que sí se guarda en BDD
     students = fields.One2many("school.student", 'classroom')
-
+    teachers = fields.Many2many('school.teacher')
+    
 class teacher(models.Model):
     _name = 'school.teacher'
     _description = 'Los profesores'
@@ -36,4 +37,3 @@ class teacher(models.Model):
     name = fields.Char()
     # Un profesor puede dar clase en varias aulas y en un aula, varios profesores
     classrooms = fields.Many2many('school.classroom')
-    
