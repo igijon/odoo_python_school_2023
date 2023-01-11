@@ -8,6 +8,7 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
+          <field name="birth_year" />
         </tree>
       </field>
     </record>
