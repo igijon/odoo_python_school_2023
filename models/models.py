@@ -66,7 +66,7 @@ class classroom(models.Model):
 
     # Vamos a considerar que una  clase puede tener un coordinador (profesor) y que un mismo profesor
     # pudiera ser coordinador de varias clases
-    coordinador = fields.Many2one('school.teacher', compute='_get_coordinator')
+    coordinator = fields.Many2one('school.teacher', compute='_get_coordinator')
 
     def _get_coordinator(self):
         for classroom in self:
