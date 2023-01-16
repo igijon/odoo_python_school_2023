@@ -10,7 +10,7 @@ class student(models.Model):
 
     name = fields.Char(string="Nombre", readonly=False, required=True, help="Este es el nombre")
     birth_year = fields.Integer()
-    password = fields.Char(compute='_get_password')
+    password = fields.Char(compute='_get_password', store=True)
     description = fields.Text()
     inscription_date = fields.Date()
     last_login = fields.Datetime()
@@ -20,8 +20,10 @@ class student(models.Model):
     # Clave ajena a la clave primaria de classroom. Se guarda en BDD
     classroom = fields.Many2one("school.classroom", ondelete="set null", help="Clase a la que pertenece")
     
+    # NOTA: ESTO ES SÓLO UN EJEMPLO NO UNA BUENA PRÁCTICA PARA PASSWORD
     # Le puede entrar uno o más listas de estudiantes
     # Self será una lista de estudiantes, si sólo es un estudiante, self será una lista de estudiante
+    @api.depends('name') # Se calculará sólo cuando cambie el nombre o se cree
     def _get_password(self):
         # para ver qué está ocurriendo, en este caso podemos imprimir en el terminal (aparecerá en el log del servicio)
         print(self)
@@ -29,9 +31,9 @@ class student(models.Model):
         # Si sólo es un estudiante, vendrá un único estudiante
         for student in self: #Si sólo queremos que reciba un estudiante pondríamos el decorador @api.one
             # student es una instancia del modelo student
-            student.password = secrets.test_token_urlsafe(12) # Generará un token de 12 bytes 
+            student.password = secrets.token_urlsafe(12) # Generará un token de 12 bytes 
             # Cada vez que refrescos se regenerará, pero esto sólo es un ejemplo
-            print(student)
+            print('\033[94m', student, '\033[0m')
 
 
 class classroom(models.Model):
