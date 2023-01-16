@@ -9,6 +9,7 @@
         <tree>
           <field name="name"/>
           <field name="birth_year" />
+          <field name="password" />
         </tree>
       </field>
     </record>
