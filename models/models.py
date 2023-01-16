@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from odoo import _
-from odoo.exceptions import Warning
 import secrets
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class student(models.Model):
@@ -28,15 +29,13 @@ class student(models.Model):
     @api.depends('name') # Se calculará sólo cuando cambie el nombre o se cree
     def _get_password(self):
         # para ver qué está ocurriendo, en este caso podemos imprimir en el terminal (aparecerá en el log del servicio)
-        print(self)
         # Todas las funciones que calculan campos deben recorrer toda la lista de estudiantes 
         # Si sólo es un estudiante, vendrá un único estudiante
         for student in self: #Si sólo queremos que reciba un estudiante pondríamos el decorador @api.one
             # student es una instancia del modelo student
             student.password = secrets.token_urlsafe(12) # Generará un token de 12 bytes 
             # Cada vez que refrescos se regenerará, pero esto sólo es un ejemplo
-            print('\033[94m', student, '\033[0m')
-            raise Warning(_('Se ha producido un Warning!')) # Aquí no tiene sentido pero es un ejemplo
+            _logger.warning('\033[94m'+str(student)+'\033[0m')
 
 
 class classroom(models.Model):
@@ -64,6 +63,16 @@ class classroom(models.Model):
     #column2: establece el nombre de la columna que va a hacer referencia al modelo
     #de la clase con la que referenciamos, en este caso teacher para el campo teachers de
     #classroom
+
+    # Vamos a considerar que una  clase puede tener un coordinador (profesor) y que un mismo profesor
+    # pudiera ser coordinador de varias clases
+    coordinador = fields.Many2one('school.teacher', compute='_get_coordinator')
+
+    def _get_coordinator(self):
+        for classroom in self:
+            if len(classroom.teachers) > 0:
+                classroom.coordinator = classroom.teachers[0].id # Para el ejemplo vamos a establecer como coordinador el primero de la lista
+
 
 class teacher(models.Model):
     _name = 'school.teacher'
