@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo import _
+from odoo.exceptions import Warning
 import secrets
 
 
@@ -34,6 +36,7 @@ class student(models.Model):
             student.password = secrets.token_urlsafe(12) # Generará un token de 12 bytes 
             # Cada vez que refrescos se regenerará, pero esto sólo es un ejemplo
             print('\033[94m', student, '\033[0m')
+            raise Warning(_('Se ha producido un Warning!')) # Aquí no tiene sentido pero es un ejemplo
 
 
 class classroom(models.Model):
