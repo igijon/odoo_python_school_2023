@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+import secrets
 
 
 class student(models.Model):
@@ -28,7 +29,8 @@ class student(models.Model):
         # Si sólo es un estudiante, vendrá un único estudiante
         for student in self: #Si sólo queremos que reciba un estudiante pondríamos el decorador @api.one
             # student es una instancia del modelo student
-            student.password = '1234' # Como ejemplo estamos asignando a todos los usuarios la misma contraseña
+            student.password = secrets.test_token_urlsafe(12) # Generará un token de 12 bytes 
+            # Cada vez que refrescos se regenerará, pero esto sólo es un ejemplo
             print(student)
 
 
