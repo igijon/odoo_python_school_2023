@@ -64,15 +64,24 @@ class classroom(models.Model):
     #de la clase con la que referenciamos, en este caso teacher para el campo teachers de
     #classroom
 
+    teachers_last_year = fields.Many2many(comodel_name='school.teacher',
+                                relation='teachers_classroom_ly',
+                                column1='classroom_id',
+                                column2='teacher_id')
     # Vamos a considerar que una  clase puede tener un coordinador (profesor) y que un mismo profesor
     # pudiera ser coordinador de varias clases
     coordinator = fields.Many2one('school.teacher', compute='_get_coordinator')
+
+    all_teachers = fields.Many2many('school.teacher', compute='_get_teacher')
 
     def _get_coordinator(self):
         for classroom in self:
             if len(classroom.teachers) > 0:
                 classroom.coordinator = classroom.teachers[0].id # Para el ejemplo vamos a establecer como coordinador el primero de la lista
 
+    def _get_teacher(self):
+        for classroom in self:
+            classroom.all_teachers = classroom.teachers + classroom.teachers_last_year
 
 class teacher(models.Model):
     _name = 'school.teacher'
