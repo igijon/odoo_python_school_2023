@@ -29,6 +29,18 @@ class student(models.Model):
 
     password = fields.Char(default=lambda p: secrets.token_urlsafe(12))
     
+    @api.constrains('dni')
+    def _check_dni(self):
+        regex = re.compile('[0-9]{8}[a-z]\Z', re.I)
+        for student in self:
+            #Validamos si se cumple la condición
+            if regex.match(student.dni):
+                _logger.info('DNI correcto')
+            else:
+                #No coinciden por lo que tenemos que informar para que no se guarde
+                raise ValidationError('El formato del DNI no es correcto')
+
+
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
