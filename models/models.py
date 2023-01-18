@@ -15,7 +15,7 @@ class student(models.Model):
     birth_year = fields.Integer()
     
     description = fields.Text()
-    inscription_date = fields.Date()
+    inscription_date = fields.Datetime(default=lambda d: fields.Datetime().now())
     last_login = fields.Datetime()
     is_student = fields.Boolean()
     #photo = fields.Binary()
