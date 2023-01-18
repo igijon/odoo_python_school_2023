@@ -40,7 +40,8 @@ class student(models.Model):
                 #No coinciden por lo que tenemos que informar para que no se guarde
                 raise ValidationError('El formato del DNI no es correcto')
 
-
+    _sql_constraints = [('dni_uniq', 'unique(dni)', 'DNI can\'t be repeated')]
+    
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
