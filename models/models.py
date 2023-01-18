@@ -13,7 +13,7 @@ class student(models.Model):
 
     name = fields.Char(string="Nombre", readonly=False, required=True, help="Este es el nombre")
     birth_year = fields.Integer()
-    password = fields.Char(compute='_get_password', store=True)
+    password = fields.Char(default='1234')
     description = fields.Text()
     inscription_date = fields.Date()
     last_login = fields.Datetime()
