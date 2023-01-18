@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 import secrets
 import logging
+import re
 
 _logger = logging.getLogger(__name__)
 
@@ -13,7 +15,7 @@ class student(models.Model):
 
     name = fields.Char(string="Nombre", readonly=False, required=True, help="Este es el nombre")
     birth_year = fields.Integer()
-    
+    dni = fields.Char(string="DNI")
     description = fields.Text()
     inscription_date = fields.Datetime(default=lambda d: fields.Datetime().now())
     last_login = fields.Datetime()
@@ -22,7 +24,9 @@ class student(models.Model):
     photo = fields.Image(max_widtth=200, max_height=200)
     # Clave ajena a la clave primaria de classroom. Se guarda en BDD
     classroom = fields.Many2one("school.classroom", ondelete="set null", help="Clase a la que pertenece")
-    
+    #Campo relacionado no almacenado en BDD
+    teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
+
     password = fields.Char(default=lambda p: secrets.token_urlsafe(12))
     
 class classroom(models.Model):
