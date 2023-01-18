@@ -13,7 +13,7 @@ class student(models.Model):
 
     name = fields.Char(string="Nombre", readonly=False, required=True, help="Este es el nombre")
     birth_year = fields.Integer()
-    password = fields.Char(default='1234')
+    
     description = fields.Text()
     inscription_date = fields.Date()
     last_login = fields.Datetime()
@@ -26,18 +26,13 @@ class student(models.Model):
     # NOTA: ESTO ES SÓLO UN EJEMPLO NO UNA BUENA PRÁCTICA PARA PASSWORD
     # Le puede entrar uno o más listas de estudiantes
     # Self será una lista de estudiantes, si sólo es un estudiante, self será una lista de estudiante
-    @api.depends('name') # Se calculará sólo cuando cambie el nombre o se cree
     def _get_password(self):
-        # para ver qué está ocurriendo, en este caso podemos imprimir en el terminal (aparecerá en el log del servicio)
-        # Todas las funciones que calculan campos deben recorrer toda la lista de estudiantes 
-        # Si sólo es un estudiante, vendrá un único estudiante
-        for student in self: #Si sólo queremos que reciba un estudiante pondríamos el decorador @api.one
-            # student es una instancia del modelo student
-            student.password = secrets.token_urlsafe(12) # Generará un token de 12 bytes 
-            # Cada vez que refrescos se regenerará, pero esto sólo es un ejemplo
-            _logger.warning('\033[94m'+str(student)+'\033[0m')
+        password = student.password = secrets.token_urlsafe(12) # Generará un token de 12 bytes 
+        _logger.warning('\033[94m'+str(student)+'\033[0m')
+        return password
 
-
+    password = fields.Char(default=_get_password)
+    
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
