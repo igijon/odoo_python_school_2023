@@ -23,15 +23,7 @@ class student(models.Model):
     # Clave ajena a la clave primaria de classroom. Se guarda en BDD
     classroom = fields.Many2one("school.classroom", ondelete="set null", help="Clase a la que pertenece")
     
-    # NOTA: ESTO ES SÓLO UN EJEMPLO NO UNA BUENA PRÁCTICA PARA PASSWORD
-    # Le puede entrar uno o más listas de estudiantes
-    # Self será una lista de estudiantes, si sólo es un estudiante, self será una lista de estudiante
-    def _get_password(self):
-        password = student.password = secrets.token_urlsafe(12) # Generará un token de 12 bytes 
-        _logger.warning('\033[94m'+str(student)+'\033[0m')
-        return password
-
-    password = fields.Char(default=_get_password)
+    password = fields.Char(default=lambda p: secrets.token_urlsafe(12))
     
 class classroom(models.Model):
     _name = 'school.classroom'
