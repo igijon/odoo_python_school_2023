@@ -8,7 +8,7 @@
       <field name="arch" type="xml">
         <tree decoration-info="birth_year>2000" editable="bottom" decoration-warning="birth_year&lt;1980">
           <field name="name"/>
-          <field name="birth_year" invisible="1"/>
+          <field name="birth_year" sum="Total"/>
           <field name="password" />
         </tree>
       </field>
