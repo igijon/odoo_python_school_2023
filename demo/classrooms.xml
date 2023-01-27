@@ -1,1 +1,35 @@
-<odoo><data><record id='classroomDAM1' model='school.classroom'><field name='name'>DAM1</field></record><record id='classroomDAM2' model='school.classroom'><field name='name'>DAM2</field></record><record id='classroomDAW1' model='school.classroom'><field name='name'>DAW1</field></record><record id='classroomDAW2' model='school.classroom'><field name='name'>DAW2</field></record><record id='classroomASIR1' model='school.classroom'><field name='name'>ASIR1</field></record><record id='classroomASIR2' model='school.classroom'><field name='name'>ASIR2</field></record><record id='classroomSMR1' model='school.classroom'><field name='name'>SMR1</field></record><record id='classroomSMR2' model='school.classroom'><field name='name'>SMR2</field></record></data></odoo>
+<odoo>
+    <data>
+        <record id='teacher1' model='school.teacher'>
+            <field name='name'>JA</field>
+        </record>
+        <record id='teacher2' model='school.teacher'>
+            <field name='name'>Marciano</field>
+        </record>
+        <record id='classroomDAM1' model='school.classroom'>
+            <field name='name'>DAM1</field>
+        </record>
+        <record id='classroomDAM2' model='school.classroom'>
+            <field name='name'>DAM2</field>
+            <field name='teachers' eval="[(6, 0, [ref('teacher1'), ref('teacher2')])]"></field>
+        </record>
+        <record id='classroomDAW1' model='school.classroom'>
+            <field name='name'>DAW1</field>
+        </record>
+        <record id='classroomDAW2' model='school.classroom'>
+            <field name='name'>DAW2</field>
+        </record>
+        <record id='classroomASIR1' model='school.classroom'>
+            <field name='name'>ASIR1</field>
+        </record>
+        <record id='classroomASIR2' model='school.classroom'>
+            <field name='name'>ASIR2</field>
+        </record>
+        <record id='classroomSMR1' model='school.classroom'>
+            <field name='name'>SMR1</field>
+        </record>
+        <record id='classroomSMR2' model='school.classroom'>
+            <field name='name'>SMR2</field>
+        </record>
+    </data>
+</odoo>
