@@ -6,7 +6,7 @@
       <field name="name">school.student list</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
-        <tree decoration-info="birth_year>2000" editable="bottom">
+        <tree decoration-info="birth_year>2000" editable="bottom" decoration-warning="birth_year&lt;1980">
           <field name="name"/>
           <field name="birth_year" invisible="1"/>
           <field name="password" />
