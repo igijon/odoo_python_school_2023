@@ -60,8 +60,13 @@
                 <field name="inscription_date"/>
                 <field name="last_login"/>
                 <field name="is_student"/>
-                <field name="level"/>
-                <field name="classroom" domain="[('level', '=', level)]"/> <!-- 'level' es del modelo classroom y level es del modelo student -->
+                <field 
+                  name="level"
+                  attrs="{'invisible':[('is_student','=',False)]}"/>
+                <field 
+                  name="classroom" 
+                  domain="[('level', '=', level)]"
+                  attrs="{'invisible':[('is_student','=',False)]}"/> <!-- 'level' es del modelo classroom y level es del modelo student -->
               </group>
             </group>
             <notebook>
