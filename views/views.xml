@@ -31,10 +31,20 @@
       <field name="model">school.student</field>
       <field name="arch" type="xml">
         <form>
-          <header>
-            <button name="regenerate_password" type="object" icon="fa-star-o" string="Regenerate Password" />
-          </header>
           <sheet>
+            <div class="oe_button_box">
+              <!--Como hemos visto en views.xml también podemos añadir etiquetas propias de html, además de las propias de xml-->
+                <button type="object" class="oe_stat_button" icon="fa-pencil-square-o"  name="regenerate_password">
+                  <div class="o_form_field o_stat_info">
+                    <span class="o_stat_value">
+                      <!-- <field name="password" string="Password"/> -->
+                      <!-- En el ejemplo va a mostrar sólo una parte porque tiene unas dimensiones concretas
+                      -->
+                    </span>
+                    <span class="o_stat_text">Password</span>
+                  </div>
+                </button>
+              </div>
             <field name="photo" widget="image"/>
             <group>
               <group>
