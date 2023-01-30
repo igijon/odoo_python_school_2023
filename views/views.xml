@@ -31,6 +31,9 @@
       <field name="model">school.student</field>
       <field name="arch" type="xml">
         <form>
+          <header>
+            <field name="state" widget="statusbar"></field>
+          </header>
           <sheet>
             <div class="oe_button_box">
               <!--Como hemos visto en views.xml también podemos añadir etiquetas propias de html, además de las propias de xml-->

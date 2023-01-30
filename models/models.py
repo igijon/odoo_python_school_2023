@@ -16,6 +16,7 @@ class student(models.Model):
     name = fields.Char(string="Nombre", readonly=False, required=True, help="Este es el nombre")
     birth_year = fields.Integer()
     dni = fields.Char(string="DNI")
+    password = fields.Char(default=lambda p: secrets.token_urlsafe(12))
     description = fields.Text()
     inscription_date = fields.Datetime(default=lambda d: fields.Datetime().now())
     last_login = fields.Datetime()
@@ -27,8 +28,7 @@ class student(models.Model):
     classroom = fields.Many2one("school.classroom", domain="[('level', '=', level)]", ondelete="set null", help="Clase a la que pertenece")
     #Campo relacionado no almacenado en BDD
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
-
-    password = fields.Char(default=lambda p: secrets.token_urlsafe(12))
+    state = fields.Selection([('1', 'Matriculado'), ('2', 'Estudiante'), ('3', 'Ex-estudiante')], default="1")
     
     @api.constrains('dni')
     def _check_dni(self):
@@ -72,6 +72,7 @@ class classroom(models.Model):
                                 relation='teachers_classroom',
                                 column1='classroom_id',
                                 column2='teacher_id')
+
     #relation: puedo establecer el nombre de la tabla intermedia.
     #column1: se establece el nombre de la columna que va a hacer referencia
     #al modelo de la clase actual, en este caso classroom para el campo
