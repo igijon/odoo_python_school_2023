@@ -20,10 +20,11 @@ class student(models.Model):
     inscription_date = fields.Datetime(default=lambda d: fields.Datetime().now())
     last_login = fields.Datetime()
     is_student = fields.Boolean()
+    level = fields.Selection([('1','1'), ('2','2')])
     #photo = fields.Binary()
     photo = fields.Image(max_widtth=200, max_height=200)
     # Clave ajena a la clave primaria de classroom. Se guarda en BDD
-    classroom = fields.Many2one("school.classroom", ondelete="set null", help="Clase a la que pertenece")
+    classroom = fields.Many2one("school.classroom", domain="[('level','=',level)]", ondelete="set null", help="Clase a la que pertenece")
     #Campo relacionado no almacenado en BDD
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
 
@@ -47,6 +48,10 @@ class classroom(models.Model):
     _description = 'Las clases'
 
     name = fields.Char() # Todos los modelos deben tener un field name
+
+    level = fields.Selection([('1','1'), ('2','2')])
+    # El primero es el valor que se guarda en BDD y el segundo el texto que se muestra
+
     # Esto es una consulta, no se guarda en BDD
     # Se declara como un field pero no se guarda porque es simplemente una
     # consulta a partir del many2one que sí se guarda en BDD
@@ -82,6 +87,8 @@ class classroom(models.Model):
         for classroom in self:
             if len(classroom.teachers) > 0:
                 classroom.coordinator = classroom.teachers[0].id # Para el ejemplo vamos a establecer como coordinador el primero de la lista
+            else: 
+                classroom.coordinator = None
 
     def _get_teacher(self):
         for classroom in self:
@@ -90,6 +97,8 @@ class classroom(models.Model):
 class teacher(models.Model):
     _name = 'school.teacher'
     _description = 'Los profesores'
+    topic = fields.Char()
+    phone = fields.Char()
 
     name = fields.Char()
     # Un profesor puede dar clase en varias aulas y en un aula, varios profesores

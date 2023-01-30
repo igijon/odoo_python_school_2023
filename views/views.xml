@@ -6,11 +6,63 @@
       <field name="name">school.student list</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
-        <tree decoration-info="birth_year>2000" editable="bottom" decoration-warning="birth_year&lt;1980">
+        <tree decoration-info="birth_year>1990" decoration-warning="birth_year&lt;1980">
           <field name="name"/>
           <field name="birth_year" sum="Total"/>
           <field name="password" />
         </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="school.teacher_list">
+      <field name="name">school.teacher list</field>
+      <field name="model">school.teacher</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="topic"/>
+          <field name="phone" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="school.student_form">
+      <field name="name">school.student form</field>
+      <field name="model">school.student</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <field name="photo" widget="image"/>
+            <group>
+              <group>
+                <separator string="Personal Data"></separator>
+                <field name="name"/>
+                <field name="birth_year"/>
+                <field name="password" password="True"/>
+                <field name="dni"/>
+                <field name="description"/>
+              </group>
+              <group>
+                <separator string="Inscription Data"></separator>
+                <field name="inscription_date"/>
+                <field name="last_login"/>
+                <field name="is_student"/>
+                <field name="level"/>
+                <field name="classroom" domain="[('level', '=', level)]"/>
+              </group>
+            </group>
+            <notebook>
+              <page name="teachers_page" string="Teachers"> 
+                <field name="teachers">
+                  <tree>
+                    <field name="name"/>
+                    <field name="topic"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
       </field>
     </record>
 
