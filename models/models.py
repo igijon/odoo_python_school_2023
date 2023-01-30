@@ -24,7 +24,7 @@ class student(models.Model):
     #photo = fields.Binary()
     photo = fields.Image(max_widtth=200, max_height=200)
     # Clave ajena a la clave primaria de classroom. Se guarda en BDD
-    classroom = fields.Many2one("school.classroom", domain="[('level','=',level)]", ondelete="set null", help="Clase a la que pertenece")
+    classroom = fields.Many2one("school.classroom", domain="[('level', '=', level)]", ondelete="set null", help="Clase a la que pertenece")
     #Campo relacionado no almacenado en BDD
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
 
@@ -43,6 +43,13 @@ class student(models.Model):
 
     _sql_constraints = [('dni_uniq', 'unique(dni)', 'DNI can\'t be repeated')]
     
+    # También recibe un recordset
+    def regenerate_password(self):
+        for student in self:
+            pw = secrets.token_urlsafe(12)
+            student.write({'password':pw})
+
+
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'

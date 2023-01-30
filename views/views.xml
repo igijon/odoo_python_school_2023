@@ -31,6 +31,9 @@
       <field name="model">school.student</field>
       <field name="arch" type="xml">
         <form>
+          <header>
+            <button name="regenerate_password" type="object" icon="fa-star-o" string="Regenerate Password" />
+          </header>
           <sheet>
             <field name="photo" widget="image"/>
             <group>
@@ -38,7 +41,7 @@
                 <separator string="Personal Data"></separator>
                 <field name="name"/>
                 <field name="birth_year"/>
-                <field name="password" password="True"/>
+                <field name="password"/>
                 <field name="dni"/>
                 <field name="description"/>
               </group>
@@ -48,7 +51,7 @@
                 <field name="last_login"/>
                 <field name="is_student"/>
                 <field name="level"/>
-                <field name="classroom" domain="[('level', '=', level)]"/>
+                <field name="classroom" domain="[('level', '=', level)]"/> <!-- 'level' es del modelo classroom y level es del modelo student -->
               </group>
             </group>
             <notebook>
