@@ -28,7 +28,7 @@ class student(models.Model):
     classroom = fields.Many2one("school.classroom", domain="[('level', '=', level)]", ondelete="set null", help="Clase a la que pertenece")
     #Campo relacionado no almacenado en BDD
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
-    state = fields.Selection([('1', 'Matriculado'), ('2', 'Estudiante'), ('3', 'Ex-estudiante')], default="1")
+    state = fields.Selection([('1', 'Matriculado'), ('2', 'Estudiante'), ('3', 'Ex-estudiante')], default="2")
     
     @api.constrains('dni')
     def _check_dni(self):

@@ -58,7 +58,7 @@
                 <field name="dni"/>
                 <field name="description"/>
               </group>
-              <group>
+              <group states="2">
                 <separator string="Inscription Data"></separator>
                 <field name="inscription_date"/>
                 <field name="last_login"/>
@@ -69,7 +69,8 @@
                 <field 
                   name="classroom" 
                   domain="[('level', '=', level)]"
-                  attrs="{'invisible':[('is_student','=',False)]}"/> <!-- 'level' es del modelo classroom y level es del modelo student -->
+                  attrs="{'invisible':[('is_student','=',False)],
+                          'required':[('is_student','=', True)]}"/> <!-- 'level' es del modelo classroom y level es del modelo student -->
               </group>
             </group>
             <notebook>
@@ -87,12 +88,88 @@
       </field>
     </record>
 
+  
+  <!--Esta vista tiene la particularidad de añadir código qweb
+    Lo primero que tiene es una referencia a id que no se va a mostrar en el card pero que es necesario para luego acceder
+    a él para mostrar la foto
+    
+    A continuación metemos templates, dentro indicará lo que se va a mostrar.
+    El card está indicado mediante t
+    
+    Dentro de cada card vamos a tener por un lado la imagen, que a su vez va a ser un enlace que si se pulsa se mostrará el formulario 
+    asociado al estudiante. Para que cargue la imagen debemos llamar a la función kanban_image indicando el modelo, el campo a cargar y
+    el id del estudiante al que nos estamos refiriendo, por eso fuera de templates tenemos el campo id referenciado para poder acceder a él
+    
+    Depués tenemos otro div con el nombre del estudiante que a su vez es un enlace, y que si lo pulsamos abrimos el formulario en el modo 
+    de edición
+    
+    Finalmente dentro de ese div tenemos una lista con la clase a la que pertenece el estudiante
+    
+    Por CSS se pueden modificar los estilos
+    
+    En la documentación de Odoo podemos ver todo lo que se podría hacer, qweb tiene muchísimas posibilidades-->
+    <record id="school.student_kanban" model="ir.ui.view">
+      <field name="name">school.student kanban</field>
+      <field name="model">school.student</field>
+      <field name="arch" type="xml">
+        <kanban 
+          default_group_by="classroom"
+          quick_create_view="school.quick_create_student_form">
+          <field name="id"></field>
+          <field name="classroom"></field>
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_color_{{kanban_getcolor(record.classroom.raw_value)}} oe_kanban_global_click o_kanban_record_has_image_fill">
+              <!-- Hemos asignado al div una clase de odoo oe_kanban_color# que a continuación recibe un número que asociará con un color. El número lo 
+              calcula a partir de una función javascript de odoo que es kanban_getcolor. Esta función recibe el valor de la clase y a partir de ese número
+              devuelve un color que se concatenará a la clase y se pintará de un color. No estamos decidiendo realmente el color, pero sí asignando un color
+              diferente en función del identificador de la clase del componente.
+              
+              Para que la función JS pueda acceder a classroom también tenemos que añadir el field fuera de templates-->
+                <a type="open">
+                  <img width="150" style="padding:5px" class="oe_kanban_image"
+                    t-att-src="kanban_image('school.student', 'photo', record.id.raw_value)"
+                    alt="student image"/>
+                </a>
+                <div t-attf-class="oe_kanban_content">
+                  <h4>
+                    <a type="edit">
+                      <field name="name"></field>
+                    </a>
+                  </h4>
+                  <ul>
+                    <li>Classroom:
+                      <field name="classroom"></field>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="school.quick_create_student_form">
+      <field name="name">school.student form</field>
+      <field name="model">school.student</field>
+      <field name="arch" type="xml">
+        <form>
+          <field name="name"/>
+          <field name="birth_year"/>
+          <field name="classroom"/>
+          <field name="level"/>
+        </form>
+      </field>
+    </record>
+    
+
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="school.action_student_window">
       <field name="name">school student window</field>
       <field name="res_model">school.student</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 
     <record model="ir.actions.act_window" id="school.action_classroom_window">
