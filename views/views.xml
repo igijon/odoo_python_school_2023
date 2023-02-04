@@ -164,6 +164,20 @@
     </record>
     
 
+    <!-- La vista search es especial porque no es lo que se ve sino los criterios
+    de búsqueda y funciona tanto en kanban como en tree-->
+    <record model="ir.ui.view" id="school.student_search">
+      <field name="name">school.student search</field>
+      <field name="model">school.student</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <field name="dni" />
+          <field name="birth_year" />
+        </search>
+      </field>
+    </record>
+
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="school.action_student_window">
