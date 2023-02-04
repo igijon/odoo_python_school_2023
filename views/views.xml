@@ -181,6 +181,21 @@
       </field>
     </record>
 
+    <!-- Vista calendar -->
+    <record model="ir.ui.view" id="school.seminar_calendar">
+      <field name="name">school.seminar search</field>
+      <field name="model">school.seminar</field>
+      <field name="arch" type="xml">
+        <calendar 
+          string="Seminar calendar" 
+          date_start="date"
+          date_stop="finish"
+          color="classroom"> <!--El color no lo elige, lo calcula en función del identificador-->
+          <field name="name"/>
+        </calendar>
+      </field>
+    </record>
+
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="school.action_student_window">
@@ -199,6 +214,12 @@
       <field name="name">school teacher window</field>
       <field name="res_model">school.teacher</field>
       <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="school.action_seminar_window">
+      <field name="name">school seminar window</field>
+      <field name="res_model">school.seminar</field>
+      <field name="view_mode">tree,form,calendar</field>
     </record>
 
 
@@ -233,5 +254,7 @@
               action="school.action_classroom_window"/>
     <menuitem name="Teachers" id="school.menu_1_teacher_list" parent="school.menu_1"
               action="school.action_teacher_window"/>
+    <menuitem name="Seminars" id="school.menu_1_seminar_list" parent="school.menu_1"
+              action="school.action_seminar_window"/>
   </data>
 </odoo>

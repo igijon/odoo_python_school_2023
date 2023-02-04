@@ -114,3 +114,11 @@ class teacher(models.Model):
                                   relation='teachers_classroom',
                                   column1='teacher_id',
                                   column2='classroom_id')
+
+class seminar(models.Model):
+    _name='school.seminar'
+    name = fields.Char()
+    date = fields.Datetime()
+    finish = fields.Datetime()
+    hours = fields.Integer()
+    classroom = fields.Many2one('school.classroom')
