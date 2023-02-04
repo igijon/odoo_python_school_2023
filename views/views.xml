@@ -175,6 +175,7 @@
           <field name="name"/>
           <field name="dni" />
           <field name="birth_year" string="Min year" filter_domain="[('birth_year','>=',self)]"/>
+          <filter name="adult" string="Adult students" domain="[('birth_year','&lt;=','2005')]"></filter> 
         </search>
       </field>
     </record>
