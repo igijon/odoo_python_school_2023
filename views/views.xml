@@ -166,6 +166,7 @@
 
     <!-- La vista search es especial porque no es lo que se ve sino los criterios
     de búsqueda y funciona tanto en kanban como en tree-->
+    <!-- Podemos buscar por un campo, hacer filtros predefinidos o agrupar según algún criterio -->
     <record model="ir.ui.view" id="school.student_search">
       <field name="name">school.student search</field>
       <field name="model">school.student</field>
@@ -173,7 +174,7 @@
         <search>
           <field name="name"/>
           <field name="dni" />
-          <field name="birth_year" />
+          <field name="birth_year" string="Min year" filter_domain="[('birth_year','>=',self)]"/>
         </search>
       </field>
     </record>
