@@ -3,8 +3,8 @@
     <!-- explicit list view definition -->
 
     <record model="ir.ui.view" id="school.student_list">
-      <field name="name">school.student list</field>
-      <field name="model">school.student</field>
+      <field name="name">school student list</field>
+      <field name="model">res.partner</field>
       <field name="arch" type="xml">
         <tree decoration-info="birth_year>1990" decoration-warning="birth_year&lt;1980">
           <field name="name"/>
@@ -27,8 +27,8 @@
     </record>
 
     <record model="ir.ui.view" id="school.student_form">
-      <field name="name">school.student form</field>
-      <field name="model">school.student</field>
+      <field name="name">school student form</field>
+      <field name="model">res.partner</field>
       <field name="arch" type="xml">
         <form>
           <header>
@@ -109,8 +109,8 @@
     
     En la documentación de Odoo podemos ver todo lo que se podría hacer, qweb tiene muchísimas posibilidades-->
     <record id="school.student_kanban" model="ir.ui.view">
-      <field name="name">school.student kanban</field>
-      <field name="model">school.student</field>
+      <field name="name">school student kanban</field>
+      <field name="model">res.partner</field>
       <field name="arch" type="xml">
         <kanban 
           default_group_by="classroom"
@@ -128,7 +128,7 @@
               Para que la función JS pueda acceder a classroom también tenemos que añadir el field fuera de templates-->
                 <a type="open">
                   <img width="150" style="padding:5px" class="oe_kanban_image"
-                    t-att-src="kanban_image('school.student', 'photo', record.id.raw_value)"
+                    t-att-src="kanban_image('res.partner', 'photo', record.id.raw_value)"
                     alt="student image"/>
                 </a>
                 <div t-attf-class="oe_kanban_content">
@@ -151,8 +151,8 @@
     </record>
 
     <record model="ir.ui.view" id="school.quick_create_student_form">
-      <field name="name">school.student form</field>
-      <field name="model">school.student</field>
+      <field name="name">school student form</field>
+      <field name="model">res.partner</field>
       <field name="arch" type="xml">
         <form>
           <field name="name"/>
@@ -168,8 +168,8 @@
     de búsqueda y funciona tanto en kanban como en tree-->
     <!-- Podemos buscar por un campo, hacer filtros predefinidos o agrupar según algún criterio -->
     <record model="ir.ui.view" id="school.student_search">
-      <field name="name">school.student search</field>
-      <field name="model">school.student</field>
+      <field name="name">school student search</field>
+      <field name="model">res.partner</field>
       <field name="arch" type="xml">
         <search>
           <field name="name"/>
@@ -200,7 +200,7 @@
 
     <record model="ir.actions.act_window" id="school.action_student_window">
       <field name="name">school student window</field>
-      <field name="res_model">school.student</field>
+      <field name="res_model">res.partner</field>
       <field name="view_mode">tree,form,kanban</field>
     </record>
 

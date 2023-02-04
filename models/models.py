@@ -10,10 +10,12 @@ _logger = logging.getLogger(__name__)
 
 
 class student(models.Model):
-    _name = 'school.student'
-    _description = 'school.student'
+    _name = 'res.partner'
+    _inherit = 'res.partner' #herencia de clase
 
-    name = fields.Char(string="Nombre", readonly=False, required=True, help="Este es el nombre")
+    #_description = 'school.student'
+
+    #name = fields.Char(string="Nombre", readonly=False, required=True, help="Este es el nombre")
     birth_year = fields.Integer()
     dni = fields.Char(string="DNI")
     password = fields.Char(default=lambda p: secrets.token_urlsafe(12))
@@ -62,7 +64,7 @@ class classroom(models.Model):
     # Esto es una consulta, no se guarda en BDD
     # Se declara como un field pero no se guarda porque es simplemente una
     # consulta a partir del many2one que sí se guarda en BDD
-    students = fields.One2many(string="Alumnos", comodel_name="school.student", inverse_name='classroom')
+    students = fields.One2many(string="Alumnos", comodel_name="res.partner", inverse_name='classroom')
     # comodel_name es el modelo con el que establecemos la relación. Una clase tiene
     # muchos estudiantes, el modelo serían los estudiantes
     # inverse_name sería la clave ajena de la clase con la que relacionamos.
