@@ -26,6 +26,37 @@
       </field>
     </record>
 
+  
+    <record model="ir.ui.view" id="school.student_partner_form">
+      <field name="name">school student form inherit</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"></field>
+      <field name="arch" type="xml">
+        <notebook position="inside">
+          <page name="student" string="Student">
+            <group>
+              <field name="birth_year"/>
+              <field name="password"/>
+              <field name="dni"/>
+              <field name="description"/>
+              <field name="inscription_date"/>
+              <field name="last_login"/>
+              <field name="is_student"/>
+              <field 
+                name="level"
+                attrs="{'invisible':[('is_student','=',False)]}"/>
+              <field 
+                name="classroom" 
+                domain="[('level', '=', level)]"
+                attrs="{'invisible':[('is_student','=',False)],
+                        'required':[('is_student','=', True)]}"/>
+            </group>
+          </page>
+        </notebook>
+      </field>
+    </record>
+
+
     <record model="ir.ui.view" id="school.student_form">
       <field name="name">school student form</field>
       <field name="model">res.partner</field>
@@ -206,7 +237,7 @@
       <field name="context">{'search_default_student':1, 'default_is_student':True}</field>
     </record>
 
-    <record model="ir.actions.act_window.view" id="school.action_view_student_form">
+    <!-- <record model="ir.actions.act_window.view" id="school.action_view_student_form">
       <field eval="2" name="sequence"/>
       <field name="view_mode">form</field>
       <field name="view_id" ref="school.student_form"/>
@@ -225,7 +256,7 @@
       <field name="view_mode">tree</field>
       <field name="view_id" ref="school.student_list"/>
       <field name="act_window_id" ref="school.action_student_window"/>
-    </record>
+    </record> -->
 
     <record model="ir.actions.act_window" id="school.action_classroom_window">
       <field name="name">school classroom window</field>
