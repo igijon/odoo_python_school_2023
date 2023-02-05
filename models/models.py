@@ -31,7 +31,10 @@ class student(models.Model):
     #Campo relacionado no almacenado en BDD
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
     state = fields.Selection([('1', 'Matriculado'), ('2', 'Estudiante'), ('3', 'Ex-estudiante')], default="2")
-    
+
+    individual_tasks = fields.One2many('school.individual_task', 'student')
+    groupal_tasks = fields.Many2many('school.groupal_task')
+
     @api.constrains('dni')
     def _check_dni(self):
         regex = re.compile('[0-9]{8}[a-z]\Z', re.I)
@@ -124,3 +127,24 @@ class seminar(models.Model):
     finish = fields.Datetime()
     hours = fields.Integer()
     classroom = fields.Many2one('school.classroom')
+
+class task(models.Model):
+    _name='school.task'
+    _description='base class for tasks'
+    name = fields.Char()
+    qualification = fields.Float()
+
+class individual_task(models.Model):
+    _name='school.individual_task'
+    _description='one student task'
+    _inherit = 'school.task'
+    
+    student = fields.Many2one('res.partner', ondelente='cascade')
+
+class groupal_task(models.Model):
+    _name = 'school.groupal_task'
+    _description = 'many student task'
+    _inherit = 'school.task'
+
+    student = fields.Many2many('res.partner')
+    
