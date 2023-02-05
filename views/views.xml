@@ -201,6 +201,7 @@
       <field name="res_model">res.partner</field>
       <field name="view_mode">tree,form,kanban</field>
       <field name="search_view_id" ref="school.student_search"/>
+      <field name="domain">[('is_student','=',True)]</field>
     </record>
 
     <record model="ir.actions.act_window.view" id="school.action_view_student_form">
