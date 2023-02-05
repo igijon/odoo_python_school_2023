@@ -164,9 +164,6 @@
     </record>
     
 
-    <!-- La vista search es especial porque no es lo que se ve sino los criterios
-    de búsqueda y funciona tanto en kanban como en tree-->
-    <!-- Podemos buscar por un campo, hacer filtros predefinidos o agrupar según algún criterio -->
     <record model="ir.ui.view" id="school.student_search">
       <field name="name">school student search</field>
       <field name="model">res.partner</field>
@@ -176,6 +173,7 @@
           <field name="dni" />
           <field name="birth_year" string="Min year" filter_domain="[('birth_year','>=',self)]"/>
           <filter name="adult" string="Adult students" domain="[('birth_year','&lt;=','2005')]"></filter> 
+          <filter name="student" string="Is Student" domain="[('is_student', '=', True)]" />
           <filter name="group_by_classroom" string="Group by classroom" context="{'group_by': 'classroom'}"></filter> 
         </search>
       </field>
@@ -202,6 +200,7 @@
       <field name="name">school student window</field>
       <field name="res_model">res.partner</field>
       <field name="view_mode">tree,form,kanban</field>
+      <field name="search_view_id" ref="school.student_search"/>
     </record>
 
     <record model="ir.actions.act_window.view" id="school.action_view_student_form">
