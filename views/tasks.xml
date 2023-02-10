@@ -1,4 +1,4 @@
-<!-- <odoo>
+<odoo>
     <data>
 
         <record model="ir.ui.view" id="school.individual_task_form">
@@ -7,7 +7,6 @@
             <field name="arch" type="xml">
                 <form>
                     <group>
-                        <field name="student" readonly="True"/>
                         <field name="name"/>
                         <field name="qualification"/>
                     </group>
@@ -27,4 +26,4 @@
             parent="school.menu_1"
             action="school.action_task_window"/>
     </data>
-</odoo> -->
+</odoo>

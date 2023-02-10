@@ -114,10 +114,11 @@
                 </field>
               </page>
               <page name="individual_task_page" string="Individual Tasks">
-                <field name="individual_tasks" context="{'default_student':parent.partner_id}">
+                <field name="individual_tasks">
                   <tree>
                     <field name="name"/>
                     <field name="qualification"/>
+                    <field name="student"/>
                   </tree>
                 </field>
               </page>
