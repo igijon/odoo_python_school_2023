@@ -146,5 +146,10 @@ class groupal_task(models.Model):
     _description = 'many student task'
     _inherit = 'school.task'
 
-    student = fields.Many2many('res.partner')
+    def _get_default_student(self):
+        student = self.browse(self._context.get('current_student'))
+        _logger.warning(self._context.get('current_student'))
+        return [student.id]
+
+    student = fields.Many2many('res.partner', default=_get_default_student)
     
