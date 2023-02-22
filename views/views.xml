@@ -293,6 +293,12 @@
       <field name="res_model">school.seminar</field>
       <field name="view_mode">tree,form,calendar</field>
     </record>
+    
+    <record model="ir.actions.act_window" id="school.action_task_window">
+      <field name="name">school task window</field>
+      <field name="res_model">school.task</field>
+      <field name="view_mode">tree,form</field>
+    </record>
 
 
     <!-- server action to the one above -->
@@ -328,5 +334,7 @@
               action="school.action_teacher_window"/>
     <menuitem name="Seminars" id="school.menu_1_seminar_list" parent="school.menu_1"
               action="school.action_seminar_window"/>
+    <menuitem name="Tasks" id="school.menu_1_task_list" parent="school.menu_1"
+              action="school.action_task_window"/>
   </data>
 </odoo>

@@ -137,14 +137,14 @@ class task(models.Model):
 class individual_task(models.Model):
     _name='school.individual_task'
     _description='one student task'
-    _inherit = 'school.task'
+    _inherits = {'school.task':'task_id'} 
     
     student = fields.Many2one('res.partner', ondelente='cascade')
 
 class groupal_task(models.Model):
     _name = 'school.groupal_task'
     _description = 'many student task'
-    _inherit = 'school.task'
+    _inherits = {'school.task':'task_id'} 
 
     def _get_default_student(self):
         student = self.browse(self._context.get('current_student'))
