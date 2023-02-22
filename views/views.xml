@@ -127,7 +127,7 @@
                   <tree>
                     <field name="name"/>
                     <field name="qualification"/>
-                    <field name="student" widget="many2many_tags"/>
+                    <field name="students" widget="many2many_tags"/>
                   </tree>
                 </field>
               </page>

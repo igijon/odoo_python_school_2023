@@ -151,5 +151,5 @@ class groupal_task(models.Model):
         _logger.warning(self._context.get('current_student'))
         return [student.id]
 
-    student = fields.Many2many('res.partner', default=_get_default_student)
+    students = fields.Many2many('res.partner', default=_get_default_student)
     
