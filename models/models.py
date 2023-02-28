@@ -148,8 +148,11 @@ class groupal_task(models.Model):
 
     def _get_default_student(self):
         student = self.browse(self._context.get('current_student'))
-        _logger.warning(self._context.get('current_student'))
-        return [student.id]
-
+        if student:
+            _logger.warning(self._context.get('current_student'))
+            return [student.id]
+        else:
+            return []
+        
     students = fields.Many2many('res.partner', default=_get_default_student)
     
