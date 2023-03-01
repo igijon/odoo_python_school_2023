@@ -23,11 +23,11 @@ class student(models.Model):
     inscription_date = fields.Datetime(default=lambda d: fields.Datetime().now())
     last_login = fields.Datetime()
     is_student = fields.Boolean()
+    classroom = fields.Many2one("school.classroom", ondelete="set null", help="Clase a la que pertenece")
     level = fields.Selection([('1','1'), ('2','2')])
     #photo = fields.Binary()
     photo = fields.Image(max_widtth=200, max_height=200)
     # Clave ajena a la clave primaria de classroom. Se guarda en BDD
-    classroom = fields.Many2one("school.classroom", domain="[('level', '=', level)]", ondelete="set null", help="Clase a la que pertenece")
     #Campo relacionado no almacenado en BDD
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
     state = fields.Selection([('1', 'Matriculado'), ('2', 'Estudiante'), ('3', 'Ex-estudiante')], default="2")
@@ -53,6 +53,28 @@ class student(models.Model):
         for student in self:
             pw = secrets.token_urlsafe(12)
             student.write({'password':pw})
+
+
+    @api.onchange('birth_year')
+    def _onchange_byear(self):
+        if self.birth_year > 2010:
+            self.birth_year = 2010
+            return { 
+                        'warning': 
+                        { 
+                            'title': 'Bad birth year', 
+                            'message': 'The student is too young',
+                            'type': 'notification'
+                        } 
+                    }
+
+    @api.onchange('level')
+    def _onchange_level(self):
+        return {
+            'domain': {
+                'classroom': [('level', '=', self.level)]
+            }
+        }  
 
 
 class classroom(models.Model):

@@ -99,8 +99,7 @@
                   attrs="{'invisible':[('is_student','=',False)]}"/>
                 <field 
                   name="classroom" 
-                  domain="[('level', '=', level)]"
-                  attrs="{'invisible':[('is_student','=',False)],
+                  attrs="{'invisible':['|', ('is_student','=',False), ('level','=',False)],
                           'required':[('is_student','=', True)]}"/> <!-- 'level' es del modelo classroom y level es del modelo student -->
               </group>
             </group>
