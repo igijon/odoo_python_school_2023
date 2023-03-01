@@ -1,21 +1,18 @@
 # -*- coding: utf-8 -*-
-# from odoo import http
+from odoo import http
 
-
-# class School(http.Controller):
-#     @http.route('/school/school', auth='public')
-#     def index(self, **kw):
-#         return "Hello, world"
-
-#     @http.route('/school/school/objects', auth='public')
-#     def list(self, **kw):
-#         return http.request.render('school.listing', {
-#             'root': '/school/school',
-#             'objects': http.request.env['school.school'].search([]),
-#         })
-
-#     @http.route('/school/school/objects/<model("school.school"):obj>', auth='public')
-#     def object(self, obj, **kw):
-#         return http.request.render('school.object', {
-#             'object': obj
-#         })
+class MyController(http.Controller):
+    @http.route('/school/course', auth='user', type='json')
+    def course(self):
+        return {
+            'html': """
+                <div id="school_banner">
+                    <link href="/school/static/src/css/banner.css" rel="stylesheet">
+                    <h1>Curso</h1>
+                    <p>Creación de cursos:</p>
+                    <a class="course_button" type="action" data-reload-on-close="true" role="button" data-method="action_course"> 
+                    Crear Cursos
+                    </a>
+                </div>
+            """
+        }

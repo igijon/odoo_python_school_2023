@@ -6,7 +6,7 @@
       <field name="name">school student list</field>
       <field name="model">res.partner</field>
       <field name="arch" type="xml">
-        <tree decoration-info="birth_year>1990" decoration-warning="birth_year&lt;1980">
+        <tree banner_route="/school/course" decoration-info="birth_year>1990" decoration-warning="birth_year&lt;1980">
           <field name="name"/>
           <field name="birth_year" sum="Total"/>
           <field name="password" />
