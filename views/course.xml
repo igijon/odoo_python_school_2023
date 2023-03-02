@@ -1,4 +1,26 @@
 <odoo>
     <data>
+        <record model="ir.ui.view" id="school.course_form">
+            <field name="name">school course form</field>
+            <field name="model">school.course</field>
+            <field name="arch" type="xml">
+                <form><group>
+                    <field name="name"/>
+                    <field name="classrooms" context="{'default_course':active_id}"/>
+                    <field name="students" domain="[('is_student','=',True)]"/>
+                    <field name="enrolled_students" />
+                </group></form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="school.action_course_window">
+            <field name="name">school course window</field>
+            <field name="res_model">school.course</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Course" id="school.menu_course" parent="school.menu_1"
+              action="school.action_course_window"/>
     </data>
 </odoo>

@@ -6,3 +6,4 @@ access_school_task,school.task,model_school_task,base.group_user,1,1,1,1
 access_school_task,school.task,model_school_task,base.group_user,1,1,1,1
 access_school_individual_task,school.individual_task,model_school_individual_task,base.group_user,1,1,1,1
 access_school_groupal_task,school.groupal_task,model_school_groupal_task,base.group_user,1,1,1,1
+access_school_course,school.course,model_school_course,base.group_user,1,1,1,1

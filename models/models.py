@@ -117,7 +117,9 @@ class classroom(models.Model):
     coordinator = fields.Many2one('school.teacher', compute='_get_coordinator')
 
     all_teachers = fields.Many2many('school.teacher', compute='_get_teacher')
-
+    
+    course = fields.Many2one('school.course')
+    
     def _get_coordinator(self):
         for classroom in self:
             if len(classroom.teachers) > 0:
