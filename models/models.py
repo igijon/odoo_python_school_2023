@@ -200,7 +200,13 @@ class course_wizard(models.TransientModel):
 
     name = fields.Char()
     # Vamos a hacer la lista de clases y estudiantes 
+    c_name=fields.Char(string="Classroom Name")
+    c_level=fields.Selection([('1','1'),('2','2')], string="Classroom Level")
     classrooms = fields.Many2many('school.classroom_aux') 
+
+    s_name = fields.Char(string='Student Name')
+    s_birth_year = fields.Integer(string='Student Birth Year')
+    s_dni = fields.Char(string='DNI')
     students = fields.Many2many('school.student_aux')
 
     #Función que afecta al modelo, no al recordset del modelo
@@ -214,6 +220,12 @@ class course_wizard(models.TransientModel):
             c.env['school.course'].create({'name':c.name})
             for cl in c.classrooms:
                 c.env['school.classrooms'].create({'name':cl.name, 'course':c.id})
+
+    def add_classroom(self):
+        pass
+    
+    def add_student(self):
+        pass
 
 
 class classroom_aux(models.TransientModel):

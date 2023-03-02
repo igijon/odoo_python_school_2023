@@ -17,16 +17,43 @@
             <field name="name">school course wizard form</field>
             <field name="model">school.course_wizard</field>
             <field name="arch" type="xml">
-                <form><group>
-                    <field name="name"/>
-                    <field name="classrooms"/>
-                    <field name="students"/>
-                    </group>
-                    <button name="create_course" type="object"
-                            string="Create" class="oe_highlight"/>
-                    or
-                    <button special="cancel" 
-                            string="Cancel"/>
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group col="5" string="Classrooms">
+                            <field name="c_name"></field>
+                            <field name="c_level"></field>
+                            <button name="add_classroom" type="object"
+                                    string="Add Classroom" class="oe_highlight"></button>
+                        </group>
+                        <group>
+                            <field name="classrooms">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="level"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="7" string="Students">
+                            <field name="s_name"></field>
+                            <field name="s_birth_year"></field>
+                            <field name="s_dni"></field>
+                            <button name="add_student" type="object"
+                                    string="Add Student" class="oe_highlight"></button>
+                        </group>
+                        <group>
+                            <field name="students">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="birth_year"/>
+                                    <field name="dni"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    
                 </form>
             </field>
         </record>
