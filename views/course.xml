@@ -12,6 +12,18 @@
                 </group></form>
             </field>
         </record>
+        
+        <record model="ir.ui.view" id="school.course_wizard_form">
+            <field name="name">school course wizard form</field>
+            <field name="model">school.course_wizard</field>
+            <field name="arch" type="xml">
+                <form><group>
+                    <field name="name"/>
+                    <field name="classrooms"/>
+                    <field name="students" domain="[('is_student','=',True)]"/>
+                </group></form>
+            </field>
+        </record>
 
 
         <record model="ir.actions.act_window" id="school.action_course_window">
@@ -19,6 +31,17 @@
             <field name="res_model">school.course</field>
             <field name="view_mode">tree,form</field>
         </record>
+        
+        <record model="ir.actions.act_window" id="school.action_course_wizard">
+            <field name="name">Launch Course Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">school.course_wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="school.course_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        
+       
 
         <menuitem name="Course" id="school.menu_course" parent="school.menu_1"
               action="school.action_course_window"/>

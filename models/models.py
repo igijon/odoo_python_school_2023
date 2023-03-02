@@ -119,7 +119,7 @@ class classroom(models.Model):
     all_teachers = fields.Many2many('school.teacher', compute='_get_teacher')
     
     course = fields.Many2one('school.course')
-    
+
     def _get_coordinator(self):
         for classroom in self:
             if len(classroom.teachers) > 0:
@@ -193,3 +193,17 @@ class course(models.Model):
     def _get_enrolled(self):
         for c in self:
             c.enrolled_students = c.students.filtered(lambda s: len(s.classroom) == 1)
+
+
+class course_wizard(models.TransientModel):
+    _name = 'school.course_wizard'
+
+    name = fields.Char()
+    # Vamos a hacer la lista de clases y estudiantes 
+    classrooms = fields.Many2many('school.classroom') 
+    students = fields.Many2many('res.partner')
+
+    @api.model
+    def action_course_wizard(self):
+        action = self.env.ref('school.action_course_wizard').read()[0]
+        return action
