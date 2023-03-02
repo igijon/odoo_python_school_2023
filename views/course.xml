@@ -20,8 +20,14 @@
                 <form><group>
                     <field name="name"/>
                     <field name="classrooms"/>
-                    <field name="students" domain="[('is_student','=',True)]"/>
-                </group></form>
+                    <field name="students"/>
+                    </group>
+                    <button name="create_course" type="object"
+                            string="Create" class="oe_highlight"/>
+                    or
+                    <button special="cancel" 
+                            string="Cancel"/>
+                </form>
             </field>
         </record>
 

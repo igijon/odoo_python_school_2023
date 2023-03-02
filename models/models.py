@@ -200,10 +200,29 @@ class course_wizard(models.TransientModel):
 
     name = fields.Char()
     # Vamos a hacer la lista de clases y estudiantes 
-    classrooms = fields.Many2many('school.classroom') 
-    students = fields.Many2many('res.partner')
+    classrooms = fields.Many2many('school.classroom_aux') 
+    students = fields.Many2many('school.student_aux')
 
+    #Función que afecta al modelo, no al recordset del modelo
     @api.model
     def action_course_wizard(self):
         action = self.env.ref('school.action_course_wizard').read()[0]
         return action
+    
+    def create_course(self):
+        for c in self:
+            c.env['school.course'].create({'name':c.name})
+            for cl in c.classrooms:
+                c.env['school.classrooms'].create({'name':cl.name, 'course':c.id})
+
+
+class classroom_aux(models.TransientModel):
+    _name = 'school.classroom_aux'
+    name = fields.Char()
+    level = fields.Selection([('1','1'),('2','2')])
+
+class student_aux(models.TransientModel):
+    _name = 'school.student_aux'
+    name = fields.Char()
+    birth_year = fields.Integer()
+    dni = fields.Char(string='DNI')
