@@ -10,7 +10,7 @@ class MyController(http.Controller):
                     <link href="/school/static/src/css/banner.css" rel="stylesheet">
                     <h1>Curso</h1>
                     <p>Creación de cursos:</p>
-                    <a class="course_button" type="action" data-reload-on-close="true" role="button" data-method="action_course"> 
+                    <a class="course_button" type="action" data-reload-on-close="true" role="button" data-method="action_course_wizard" data-model="school.course_wizard"> 
                     Crear Cursos
                     </a>
                 </div>

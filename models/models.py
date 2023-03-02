@@ -178,3 +178,16 @@ class groupal_task(models.Model):
         
     students = fields.Many2many('res.partner', default=_get_default_student)
     
+
+class course(models.Model):
+    _name= 'school.course'
+    name = fields.Char()
+
+    classrooms = fields.One2many('school.classroom', 'course')
+    students = fields.Many2many('res.partner')
+    enrolled_students = fields.Many2many('res.partner', compute='_get_enrolled')
+
+    # Alumnos asignados a alguna clase
+    def _get_enrolled(self):
+        for c in self:
+            c.enrolled_students = c.students.filtered(lambda s: len(s.classroom) == 1)
