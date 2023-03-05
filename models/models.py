@@ -215,17 +215,35 @@ class course_wizard(models.TransientModel):
         action = self.env.ref('school.action_course_wizard').read()[0]
         return action
     
+    def add_classroom(self):
+        for c in self:
+            c.write({'classrooms':[(0,0,{'name':c.c_name, 'level':c.c_level})]})
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': self._name,
+            'res_id': self.id,
+            'view_mode': 'form',
+            'target': 'new'
+        }
+    
+    def add_student(self):
+        for c in self:
+            c.write({'students':[(0,0,{'name':c.s_name, 'dni':c.s_dni, 'birth_year':c.s_birth_year})]})
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': self._name,
+            'res_id': self.id,
+            'view_mode': 'form',
+            'target': 'new'
+        }
+
     def create_course(self):
         for c in self:
             c.env['school.course'].create({'name':c.name})
             for cl in c.classrooms:
                 c.env['school.classrooms'].create({'name':cl.name, 'course':c.id})
 
-    def add_classroom(self):
-        pass
     
-    def add_student(self):
-        pass
 
 
 class classroom_aux(models.TransientModel):
