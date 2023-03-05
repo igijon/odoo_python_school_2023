@@ -53,7 +53,13 @@
                             </field>
                         </group>
                     </sheet>
-                    
+                    <footer>
+                         <button name="create_course" type="object"
+                            string="Create" class="oe_highlight"/>
+                            or
+                        <button special="cancel" 
+                            string="Cancel"/>
+                    </footer>
                 </form>
             </field>
         </record>

@@ -238,12 +238,28 @@ class course_wizard(models.TransientModel):
         }
 
     def create_course(self):
+        _logger.warning('Llama a la función')
         for c in self:
-            c.env['school.course'].create({'name':c.name})
+            students = []
+            for st in c.students:
+                student = c.env['res.partner'].create({'name':st.name, 
+                                             'dni':st.dni, 
+                                             'birth_year': st.birth_year,
+                                             'is_student': True})
+                students.push(student.id)
+            _logger.warning('Estoy aquí.')
+            curse = c.env['school.course'].create({'name':c.name, 'students': [(6, 0, students)]})
+            _logger.warning('Después del curso'+str(curse.id))
             for cl in c.classrooms:
-                c.env['school.classrooms'].create({'name':cl.name, 'course':c.id})
-
-    
+                _logger.warning(cl+' '+curse.id)
+                c.env['school.classroom'].create({'name':cl.name, 'course':curse.id, 'level': cl.level})
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'school.course',
+            'res_id': curse.id,
+            'view_mode': 'form',
+            'target': 'current'
+        }
 
 
 class classroom_aux(models.TransientModel):
